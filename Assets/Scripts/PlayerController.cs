@@ -24,14 +24,9 @@ public class PlayerController : MonoBehaviour
 		rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
 	}
 
-	public void OnJump()
+	public void Jump()
 	{
 		if (isGrounded) rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-	}
-
-	public void OnMovement(InputValue value)
-	{
-		SetInputVector(value.Get<Vector2>());
 	}
 
 	public void SetInputVector(Vector2 direction)
