@@ -24,14 +24,14 @@ public class PlayerController : MonoBehaviour
 		rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
 	}
 
-	public void Jump()
+	public void OnJump()
 	{
 		if (isGrounded) rb.velocity = new Vector2(rb.velocity.x, jumpForce);
 	}
 
-	public void Movement(InputAction.CallbackContext context)
+	public void OnMovement(InputValue value)
 	{
-		SetInputVector(context.ReadValue<Vector2>());
+		SetInputVector(value.Get<Vector2>());
 	}
 
 	public void SetInputVector(Vector2 direction)
