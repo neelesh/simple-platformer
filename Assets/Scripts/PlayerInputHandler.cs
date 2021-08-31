@@ -30,7 +30,7 @@ public class PlayerInputHandler : MonoBehaviour
 
 	public void InputActionTriggered(CallbackContext context)
 	{
-		if (context.action.name == controls.PlayerActionMap.Jump.name) Jump();
+		// if (context.action.name == controls.PlayerActionMap.Jump.name) Jump();
 		if (context.action.name == controls.PlayerActionMap.Movement.name) Movement(context);
 	}
 
@@ -39,8 +39,8 @@ public class PlayerInputHandler : MonoBehaviour
 		playerController.SetInputVector(context.ReadValue<Vector2>());
 	}
 
-	private void Jump()
-	{
-		playerController.Jump();
-	}
+	// private void Jump()
+	// {
+	// 	playerController.Jump();
+	// }
 }

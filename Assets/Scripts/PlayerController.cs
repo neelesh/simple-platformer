@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
 	public float jumpForce = 6;
 	public bool isGrounded = false;
 
+	public Animator squashStretchAnimator;
+
 	private bool isFacingRight = true;
 	private float horizontal;
 
@@ -24,9 +26,20 @@ public class PlayerController : MonoBehaviour
 		rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
 	}
 
-	public void Jump()
+	public void Jump(InputAction.CallbackContext context)
 	{
-		if (isGrounded) rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+		if (context.canceled) return;
+
+		if (isGrounded)
+		{
+			squashStretchAnimator.SetTrigger("Jump");
+			rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+		}
+	}
+
+	public void Movement(InputAction.CallbackContext context)
+	{
+		SetInputVector(context.ReadValue<Vector2>());
 	}
 
 	public void SetInputVector(Vector2 direction)
@@ -38,7 +51,11 @@ public class PlayerController : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.tag == "Ground") isGrounded = true;
+		if (other.tag == "Ground")
+		{
+			squashStretchAnimator.SetTrigger("Landing");
+			isGrounded = true;
+		}
 	}
 
 	private void OnTriggerExit2D(Collider2D other)
